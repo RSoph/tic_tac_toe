@@ -11,13 +11,13 @@ class Player
         if @name == "computer"
             square = rand(9) + 1
             while !@board.record_mark(square, @mark)
-                square = rand(9) + 1
+                square = rand(@board.size*@board.size) + 1
             end
             puts "Ok, I'm going to put an #{@mark} at space #{square}."
         else
             puts "Where would you like to place an #{@mark}?"
             square = gets.chomp.to_i
-            while !(square >= 1 && square <= 9)
+            while !(square >= 1 && square <= (@board.size*@board.size))
                 puts "That's not a valid move, please pick a number from 1 to 9."
                 square = gets.chomp.to_i
             end
