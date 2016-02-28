@@ -10,7 +10,7 @@ class Player
     def turn
         if @name == "computer"
             square = rand(9) + 1
-            while !@board.location_available?(square)
+            while !@board.record_mark(square, @mark)
                 square = rand(9) + 1
             end
             puts "Ok, I'm going to put an #{@mark} at space #{square}."
@@ -21,12 +21,11 @@ class Player
                 puts "That's not a valid move, please pick a number from 1 to 9."
                 square = gets.chomp.to_i
             end
-            while !@board.location_available?(square)
+            while !@board.record_mark(square, @mark)
                 puts "That space isn't available, please pick again."
                 square = gets.chomp.to_i
             end
         end
-        @board.record_mark(square, @mark)
         @board.display
     end
 

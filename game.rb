@@ -10,15 +10,24 @@ class Game
             @player_x = Player.new('X', "computer", @board)
             @player_o = player
         end
+        if @board.size % 2 == 0
+            @before = @board.size - 1
+            @after = (((@board.size*@board.size)-2*@board.size + 2)/2)
+            @additional = 0
+        else
+            @before = @board.size - 1
+            @after = (((@board.size*@board.size)-2*@board.size + 1)/2)
+            @additional = 1
+        end
     end
 
     def play
         @board.display
-        2.times do
+        @before.times do
             @player_x.turn
             @player_o.turn
         end
-        2.times do
+        @after.times do
             @player_x.turn
             if @board.win?("X")
                 @player_x.win
@@ -30,10 +39,12 @@ class Game
                 return
             end
         end
-        @player_x.turn
-        if @board.win?("X")
-            @player_x.win
-            return
+        @additional.times do
+            @player_x.turn
+            if @board.win?("X")
+                @player_x.win
+                return
+            end
         end
         puts "This game is a draw."
     end

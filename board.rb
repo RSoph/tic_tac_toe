@@ -1,37 +1,47 @@
 class Board
 
-    def initialize
-        @board = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
-    end
+    attr_accessor :size
 
-    def location_available?(number)
-        x = (number-1)/3
-        y = (number-1)%3
-        @board[x][y] == number
+    def initialize
+        @grid = []
+        @size = 3
+        number = 1
+        @size.times do
+            row = []
+            @size.times do
+                row << number
+                number += 1
+            end
+        @grid << row
+        end
     end
 
     def record_mark(number, mark)
-        x = (number-1)/3
-        y = (number-1)%3
-        @board[x][y] = mark
+        x = (number-1) / @size
+        y = (number-1) % (@size)
+        if @grid[x][y] == number
+            @grid[x][y] = mark
+        else
+            return false
+        end
     end
 
     def check_rows(mark)
-        @board.each do |square|
-            return true if square.count(mark) == 3
+        @grid.each do |square|
+            return true if square.count(mark) == @size
         end
         false
     end
 
     def check_columns(mark)
-        @board.transpose do |square|
-            return true if square.count(mark) == 3
+        @grid.transpose.each do |square|
+            return true if square.count(mark) == @size
         end
         false
     end
 
     def check_diagonals(mark)
-        ((0...3).collect { |i| @board[i][i] }.count(mark) == 3) || ((0...3).collect { |i| @board[i][2-i] }.count(mark) == 3)
+        ((0...@size).collect { |i| @grid[i][i] }.count(mark) == @size) || ((0...@size).collect { |i| @grid[i][2-i] }.count(mark) == @size)
     end
 
     def win?(mark)
@@ -39,10 +49,17 @@ class Board
     end
 
     def display
-        puts " #{@board[0][0]} | #{@board[0][1]} | #{@board[0][2]}"
-        puts "-----------"
-        puts " #{@board[1][0]} | #{@board[1][1]} | #{@board[1][2]}"
-        puts "-----------"
-        puts " #{@board[2][0]} | #{@board[2][1]} | #{@board[2][2]}"
+        dash = "-----"*@size
+        display = ""
+        @grid.each do |row|
+            display_row = ""
+            row.each do |square|
+                display_row << " #{square} |" if square.to_i > 9
+                display_row << "  #{square} |" if square.to_i <= 9
+            end
+            display << "#{display_row[0..-3]}\n#{dash}\n"
+        end
+        subtract = -(dash.length + 2)
+        puts display[0..subtract]
     end
 end
