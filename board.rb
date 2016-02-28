@@ -2,9 +2,9 @@ class Board
 
     attr_accessor :size
 
-    def initialize
+    def initialize(size)
         @grid = []
-        @size = 3
+        @size = size
         number = 1
         @size.times do
             row = []
