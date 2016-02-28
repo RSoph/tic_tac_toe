@@ -1,8 +1,6 @@
 require_relative 'game'
 require_relative 'board'
 require_relative 'player'
-gem 'pry'
-require 'pry'
 
 puts "Welcome, what's your name?"
 name = gets.chomp
