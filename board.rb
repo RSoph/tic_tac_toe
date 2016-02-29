@@ -41,7 +41,7 @@ class Board
     end
 
     def check_diagonals(mark)
-        ((0...@size).collect { |i| @grid[i][i] }.count(mark) == @size) || ((0...@size).collect { |i| @grid[i][2-i] }.count(mark) == @size)
+        ((0...@size).collect { |i| @grid[i][i] }.count(mark) == @size) || ((0...@size).collect { |i| @grid[i][@size-1-i] }.count(mark) == @size)
     end
 
     def win?(mark)
