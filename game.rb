@@ -10,15 +10,10 @@ class Game
             @player_x = Player.new('X', "computer", @board)
             @player_o = player
         end
-        if @board.size % 2 == 0
-            @before = @board.size - 1
-            @after = (((@board.size*@board.size)-2*@board.size + 2)/2)
-            @additional = 0
-        else
-            @before = @board.size - 1
-            @after = (((@board.size*@board.size)-2*@board.size + 1)/2)
-            @additional = 1
-        end
+        @before = @board.size - 1
+        @after = (((@board.size*@board.size)-2*@board.size + 2)/2)
+        @additional = 0
+        @additional += 1 if @board.size % 2 == 1
     end
 
     def play
